@@ -25,4 +25,39 @@
 (define-data-var min-collateral-ratio uint u150)  ;; 150% minimum collateral ratio
 (define-data-var protocol-fee uint u25)           ;; 2.5% fee in basis points
 (define-data-var total-staked uint u0)
-(define-data-var yield-rate uint u50)   
+(define-data-var yield-rate uint u50)
+
+;; Data Maps
+(define-map tokens
+    { token-id: uint }
+    {
+        owner: principal,
+        uri: (string-ascii 256),
+        collateral: uint,
+        is-staked: bool,
+        stake-timestamp: uint,
+        fractional-shares: uint
+    }
+)
+
+(define-map token-listings
+    { token-id: uint }
+    {
+        price: uint,
+        seller: principal,
+        active: bool
+    }
+)
+
+(define-map fractional-ownership
+    { token-id: uint, owner: principal }
+    { shares: uint }
+)
+
+(define-map staking-rewards
+    { token-id: uint }
+    { 
+        accumulated-yield: uint,
+        last-claim: uint
+    }
+)
